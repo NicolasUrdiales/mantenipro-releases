@@ -1,23 +1,48 @@
 # ManteniPro releases
 
-This repository publishes signed ManteniPro installation artifacts.
+Distribución pública de ManteniPro para Windows 11 x64. El código fuente permanece en repositorios privados; la instalación no requiere clonar repositorios ni iniciar sesión en npm, GitHub o GHCR.
 
-The application source remains in the private repositories. Use the [latest release](https://github.com/NicolasUrdiales/mantenipro-releases/releases/latest) to obtain the offline bundle or configure the ManteniPro CLI with this public release channel.
+## Instalar
 
-Each release contains the bundle archive, manifest, signatures, hashes, and channel index needed to verify an installation before Docker is modified.
+1. Instalá Node.js 24 y Docker Desktop. Iniciá Docker en modo contenedores Linux.
+2. Abrí PowerShell como Administrador e instalá la CLI:
 
-## Pilot installation
+   ```powershell
+   npm install -g @mantenipro/cli@latest
+   ```
 
-The current signed candidate can be installed from a Windows PowerShell session
-without cloning a repository or logging in to GitHub:
+3. Instalá ManteniPro:
+
+   ```powershell
+   mantenipro install
+   ```
+
+4. Definí la contraseña del administrador y abrí la URL HTTPS indicada. El usuario es `admin`.
+
+El comando usa el canal **stable**, el puerto **8443** y `C:\ManteniPro`. `mantenipro install --port 8443` también es válido. No hace falta `--channel candidate` ni `--channel-url`.
+
+## Actualizar
+
+Actualizá primero una CLI antigua con el mismo comando npm de arriba. Para actualizar una instalación existente:
 
 ```powershell
-npm install -g @mantenipro/cli@next
-mantenipro install `
-  --channel candidate `
-  --channel-url https://github.com/NicolasUrdiales/mantenipro-releases/releases/download/v1.0.4/index.json `
-  --port 8443
+mantenipro update
 ```
 
-The stable channel will use the latest release after the manual Phase 8
-acceptance is complete.
+Consulta stable, pide confirmación y realiza un backup verificado antes de aplicar cambios. `mantenipro update --check` solamente consulta la versión disponible.
+
+## Desinstalar
+
+```powershell
+mantenipro uninstall
+```
+
+Pide confirmación y conserva datos, backups, certificados y configuración por defecto. No borra datos de la planta sin las opciones y la confirmación adicional de eliminación. Ver `mantenipro uninstall --help`.
+
+## Versiones e integridad
+
+Release stable: **1.0.7**. CLI mínima: **0.1.7**.
+
+La [última release estable](https://github.com/NicolasUrdiales/mantenipro-releases/releases/latest) contiene el bundle, manifiesto, firmas Ed25519, hashes e índice del canal. La CLI verifica estos artefactos antes de modificar Docker. Las imágenes también están publicadas para descarga anónima y fijadas por digest.
+
+Las notas de cada release detallan cambios, pruebas realizadas y límites de la validación. Las releases candidate no desplazan el canal stable.
