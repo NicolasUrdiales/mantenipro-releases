@@ -31,6 +31,8 @@ mantenipro update
 
 Consulta stable, pide confirmación y realiza un backup verificado antes de aplicar cambios. `mantenipro update --check` solamente consulta la versión disponible.
 
+Con la CLI **0.1.8** o posterior, si cambió la IP o la subred de la PC, la actualización reajusta HTTPS después del backup y antes de las migraciones, conservando el puerto, la CA y los secretos. Ejecutá el comando como administrador. Si hay varias interfaces LAN válidas, podés elegir en la terminal.
+
 ## Desinstalar
 
 ```powershell
@@ -42,6 +44,7 @@ Pide confirmación y conserva datos, backups, certificados y configuración por 
 ## Versiones e integridad
 
 Release stable: **1.0.7**. CLI mínima: **0.1.7**.
+CLI recomendada: **0.1.8**, publicada en `@mantenipro/cli@latest`.
 
 La [última release estable](https://github.com/NicolasUrdiales/mantenipro-releases/releases/latest) contiene el bundle, manifiesto, firmas Ed25519, hashes e índice del canal. La CLI verifica estos artefactos antes de modificar Docker. Las imágenes también están publicadas para descarga anónima y fijadas por digest.
 
